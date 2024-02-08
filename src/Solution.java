@@ -5,7 +5,9 @@ import java.util.*;
  */
 public class Solution {
     public static void main(String[] args) {
-
+        String[] strs = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
+        Solution solution = new Solution();
+        solution.groupAnagrams(strs);
     }
 
     public int[] twoSum(int[] nums, int target) {
@@ -20,5 +22,31 @@ public class Solution {
         }
 
         throw new IllegalArgumentException();
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            List<String> value;
+            if (map.containsKey(key)) {
+                value = map.get(key);
+            } else {
+                value = new ArrayList<>();
+            }
+            value.add(str);
+            map.put(key, value);
+        }
+
+        List<List<String>> result = new ArrayList<>();
+
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            result.add(entry.getValue());
+        }
+
+        return result;
     }
 }
